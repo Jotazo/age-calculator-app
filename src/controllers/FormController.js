@@ -35,6 +35,7 @@ export class FormController {
   handleSubmit() {
     this.htmlElement.addEventListener("valueInput", () => {
       this.resetFormErrors();
+      this.hideHiddenMessage();
       if (!this.isFilledInputs()) return;
       if (!this.isValidYear() || !this.isValidMonth()) return;
       if (!this.isValidDay()) return;
@@ -207,5 +208,10 @@ export class FormController {
   showHiddenMessage() {
     const spanHidden = document.querySelector(".hidden-message");
     spanHidden.classList.add("show");
+  }
+
+  hideHiddenMessage() {
+    const spanHidden = document.querySelector(".hidden-message");
+    spanHidden.classList.remove("show");
   }
 }
