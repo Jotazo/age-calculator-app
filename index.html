@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="style.css">
+  <title>Frontend Mentor | Age calculator app</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <header class="card-header">
+        <form action="" class="card-header-form">
+          <div class="form-wrapper" id="fwDay">
+            <label for="day" class="form-label">Day</label>
+            <input type="number" class="form-input" name="day" id="day" placeholder="DD">
+            <span class="form-message" id="errDay"></span>
+          </div>
+          <div class="form-wrapper" id="fwMonth">
+            <label for="month" class="form-label">Month</label>
+            <input type="number" class="form-input" name="month" id="month" placeholder="MM">
+            <span class="form-message" id="errMonth"></span>
+          </div>
+          <div class="form-wrapper" id="fwYear">
+            <label for="year" class="form-label">Year</label>
+            <input type="number" class="form-input" name="year" id="year" placeholder="YYYY">
+            <span class="form-message" id="errYear"></span>
+          </div>
+        </form>
+      </header>
+      <div class="separator">
+        <div class="separator-line"></div>
+        <div class="separator-circle">
+          <img class="separator-circle-arrow" src="./assets/images/icon-arrow.svg" alt="arrow">
+        </div>
+      </div>
+      <section class="card-results">
+        <article class="card-result">
+          <span class="card-result-number" id="cr-years">--</span>
+          <p class="card-result-text">years</p>
+        </article>
+        <article class="card-result">
+          <span class="card-result-number" id="cr-months">--</span>
+          <p class="card-result-text">months</p>
+        </article>
+        <article class="card-result">
+          <span class="card-result-number" id="cr-days">--</span>
+          <p class="card-result-text">days</p>
+        </article>
+      </section>
+      <span class="hidden-message">Te quiero mucho niña</span>
+    </div>
+  </div>
+  <script type="module" src="./src/index.js"></script>
+</body>
+
+</html>

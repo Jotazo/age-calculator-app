@@ -1,0 +1,166 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap");
+
+:root {
+  /* COLORS */
+  --purple: hsl(259, 100%, 65%);
+  --lightRed: hsl(0, 100%, 67%);
+  --white: hsl(0, 0%, 100%);
+  --offWhite: hsl(0, 0%, 94%);
+  --lightGrey: hsl(0, 0%, 86%);
+  --smokeyGrey: hsl(0, 1%, 44%);
+  --offBlack: hsl(0, 0%, 8%);
+
+  --fontSize: "32px";
+  --fontFamily: "Poppins", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize);
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--offWhite);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem auto;
+  width: 95%;
+  height: 100vh;
+}
+
+.card {
+  background-color: #fff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  border-radius: 1rem;
+  border-bottom-right-radius: 4rem;
+  padding: 2rem 1.5rem;
+  width: 100%;
+  max-width: 460px;
+}
+
+/* CARD HEADER */
+.card-header-form {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.form-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  text-transform: uppercase;
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: var(--smokeyGrey);
+  font-weight: 700;
+}
+
+.form-label.error {
+  color: var(--lightRed);
+}
+
+.form-input {
+  width: 6rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--lightGrey);
+  border-radius: 0.3rem;
+  outline: none;
+}
+
+.form-input.error {
+  border-color: var(--lightRed);
+}
+
+.form-message {
+  color: var(--lightRed);
+  font-size: 0.5rem;
+  font-weight: 400;
+  font-style: italic;
+  position: absolute;
+  bottom: -1rem;
+  display: block;
+}
+
+/* SEPARATOR */
+.separator {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.separator-line {
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  background-color: var(--offWhite);
+}
+
+.separator-circle {
+  z-index: 10;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-color: var(--purple);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.separator-circle-arrow {
+  width: 40%;
+}
+
+/* SECTION RESULTS */
+.card-results {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-results > .card-result:nth-child(2) {
+  margin: -1rem 0;
+}
+
+.card-result {
+  display: flex;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 3.5rem;
+}
+
+.card-result-number {
+  color: var(--purple);
+}
+
+.hidden-message {
+  display: none;
+  color: var(--purple);
+  font-style: italic;
+  font-weight: 700;
+  text-align: center;
+}
+
+.hidden-message.show{
+  display: block;
+}
+
+@media screen and (min-width: 500px) {
+  .separator {
+    justify-content: end;
+  }
+}
