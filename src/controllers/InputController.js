@@ -32,16 +32,10 @@ export class InputController {
     });
   }
 
-  dispatchEmptyInputEvt() {
-    const emptyInputEvt = new CustomEvent("emptyInput", {
-      bubbles: true,
-    });
-    this.htmlElement.dispatchEvent(emptyInputEvt);
-  }
-
   dispatchChangeInput() {
     const changeInputEvt = new CustomEvent("changeInput", {
       bubbles: true,
+      detail: this.htmlElement.id,
     });
     this.htmlElement.dispatchEvent(changeInputEvt);
   }

@@ -29,7 +29,12 @@ export class FormController {
 
     this.htmlElement = document.querySelector("form");
 
+    this.attachEvents();
+  }
+
+  attachEvents() {
     this.handleSubmit();
+    this.handleInputsChange();
   }
 
   handleSubmit() {
@@ -40,6 +45,12 @@ export class FormController {
       if (!this.isValidYear() || !this.isValidMonth()) return;
       if (!this.isValidDay()) return;
       this.calculateDate();
+    });
+  }
+
+  handleInputsChange() {
+    this.htmlElement.addEventListener("changeInput", (e) => {
+      if (e.detail !== "year") this.resetFormErrors();
     });
   }
 
@@ -108,10 +119,11 @@ export class FormController {
   isValidDay() {
     const isValid = true;
     const dayMessage = "Must be a valid day";
+    const dateMessage = "Must be a valid date";
 
     const dayValue = Number(this.getDayValue());
 
-    if (dayValue <= 0) {
+    if (dayValue <= 0 || dayValue > 31) {
       this.setDayError(dayMessage);
       return !isValid;
     }
@@ -119,7 +131,7 @@ export class FormController {
     const monthValue = Number(this.getMonthValue());
     const yearValue = Number(this.getYearValue());
 
-    if (!this.isLeapYearValidDay(dayValue, monthValue, yearValue, dayMessage))
+    if (!this.isLeapYearValidDay(dayValue, monthValue, yearValue, dateMessage))
       return !isValid;
 
     const isThirtyOneMonth =
@@ -131,35 +143,31 @@ export class FormController {
       monthValue === 10 ||
       monthValue === 12;
 
-    if (isThirtyOneMonth && dayValue > 31) {
-      this.setDayError(dayMessage);
-      return !isValid;
-    }
-
-    if (!isThirtyOneMonth && dayValue > 30) {
-      this.setDayError(dayMessage);
+    if (
+      (isThirtyOneMonth && dayValue > 31) ||
+      (!isThirtyOneMonth && dayValue > 30)
+    ) {
+      this.setErrorInvalidDate(dateMessage);
       return !isValid;
     }
 
     return isValid;
   }
 
-  isLeapYearValidDay(day, month, year, dayMessage) {
-    const isValid = true;
+  isLeapYearValidDay(day, month, year, message) {
+    if (month !== 2) return true;
 
     const leapYear = year % 4 === 0;
 
-    if (leapYear && month === 2 && day > 29) {
-      this.setDayError(dayMessage);
-      return !isValid;
+    const validDayLeapYear =
+      (leapYear && month === 2 && day <= 29) ||
+      (!leapYear && month === 2 && day <= 28);
+
+    if (!validDayLeapYear) {
+      this.setErrorInvalidDate(message);
     }
 
-    if (!leapYear && month === 2 && day > 28) {
-      this.setDayError(dayMessage);
-      return !isValid;
-    }
-
-    return isValid;
+    return validDayLeapYear;
   }
 
   calculateDate() {
@@ -213,5 +221,13 @@ export class FormController {
   hideHiddenMessage() {
     const spanHidden = document.querySelector(".hidden-message");
     spanHidden.classList.remove("show");
+  }
+
+  setErrorInvalidDate(message) {
+    this.setDayError(message);
+    this.wrapperMonth.setLabelError();
+    this.wrapperMonth.setInputError();
+    this.wrapperYear.setLabelError();
+    this.wrapperYear.setInputError();
   }
 }
