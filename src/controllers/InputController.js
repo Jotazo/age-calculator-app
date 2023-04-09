@@ -13,7 +13,6 @@ export class InputController {
   addChangeEvent() {
     this.htmlElement.addEventListener("input", (e) => {
       this.value = e.target.value;
-      this.removeErrorClass();
       this.dispatchChangeInput();
     });
   }

@@ -27,6 +27,8 @@ export class FormController {
     this.cardResultMonths = document.querySelector("#cr-months");
     this.cardResultYears = document.querySelector("#cr-years");
 
+    this.spanButtonSubmit = document.querySelector(".separator-circle");
+
     this.htmlElement = document.querySelector("form");
 
     this.attachEvents();
@@ -39,18 +41,35 @@ export class FormController {
 
   handleSubmit() {
     this.htmlElement.addEventListener("valueInput", () => {
-      this.resetFormErrors();
-      this.hideHiddenMessage();
-      if (!this.isFilledInputs()) return;
-      if (!this.isValidYear() || !this.isValidMonth()) return;
-      if (!this.isValidDay()) return;
-      this.calculateDate();
+      this.sendSubmit();
     });
+
+    this.spanButtonSubmit.addEventListener("click", () => {
+      this.sendSubmit();
+    });
+  }
+
+  sendSubmit() {
+    this.resetFormErrors();
+    this.hideHiddenMessage();
+    if (!this.isFilledInputs()) return;
+    if (!this.isValidYear() || !this.isValidMonth()) return;
+    if (!this.isValidDay()) return;
+    this.calculateDate();
   }
 
   handleInputsChange() {
     this.htmlElement.addEventListener("changeInput", (e) => {
-      if (e.detail !== "year") this.resetFormErrors();
+      const spanErrorDay = document.querySelector("span#errDay");
+      const spanErrorMessage = spanErrorDay.textContent;
+
+      if (spanErrorMessage === "Must be a valid date" && e.detail === "day")
+        this.resetFormErrors();
+      else {
+        if (e.detail === "day") this.wrapperDay.resetErrors();
+        if (e.detail === "month") this.wrapperMonth.resetErrors();
+        if (e.detail === "year") this.wrapperYear.resetErrors();
+      }
     });
   }
 
@@ -196,21 +215,20 @@ export class FormController {
       (timeDiff % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24)
     );
 
-    this.setYears(years);
-    this.setMonths(months);
-    this.setDays(days);
+    const delay = 400;
+
+    this.animateNum(this.cardResultYears, years, delay);
+    this.animateNum(this.cardResultMonths, months, delay);
+    this.animateNum(this.cardResultDays, days, delay);
   }
 
-  setDays(daysValue) {
-    this.cardResultDays.textContent = daysValue;
-  }
-
-  setMonths(monthsValue) {
-    this.cardResultMonths.textContent = monthsValue;
-  }
-
-  setYears(yearsValue) {
-    this.cardResultYears.textContent = yearsValue;
+  animateNum(domElement, value, delay) {
+    // Extracted from https://github.com/Jo-cloud85/
+    for (let i = 0; i <= value; i++) {
+      setTimeout(() => {
+        domElement.textContent = i;
+      }, (delay / value) * i);
+    }
   }
 
   showHiddenMessage() {

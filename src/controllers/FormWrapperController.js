@@ -6,14 +6,7 @@ export class FormWrapperController {
     this.labelElement = document.querySelector(labelSelector);
     this.inputElement = new InputController(inputSelector);
     this.spanElement = document.querySelector(spanSelector);
-    this.handleEvents();
-  }
 
-  handleEvents() {
-    this.htmlElement.addEventListener("changeInput", () => {
-      this.resetLabelError();
-      this.resetSpanMessage();
-    });
   }
 
   setLabelError() {
